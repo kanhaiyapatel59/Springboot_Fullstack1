@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RailConnect - Professional Train Booking System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004aad;
+            --primary-dark: #003b8e;
+            --primary-light: #4a7bc8;
+            --secondary: #ff6b00;
+            --secondary-light: #ff8c42;
+            --light: #f7f8fa;
+            --dark: #333;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 18px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 0;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--secondary-light);
+        }
+
+        nav a.active {
+            color: var(--secondary-light);
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--secondary-light);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 74, 173, 0.85), rgba(0, 59, 142, 0.85)), url('https://images.unsplash.com/photo-1553618551-d3d2d45c14e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 0, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-size: 32px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .section-description {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--gray);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        input, select {
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-light);
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 74, 173, 0.2);
+        }
+
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: var(--gray-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary-light);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: var(--gray-light);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid var(--gray-light);
+            padding: 14px;
+            text-align: center;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--gray-light);
+        }
+
+        tr:hover {
+            background-color: rgba(0, 74, 173, 0.05);
+        }
+
+        .success {
+            background: #e6f9e6;
+            border: 1px solid var(--success);
+            color: #007000;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #ffe5e5;
+            border: 1px solid var(--danger);
+            color: #b00000;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .search-container {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+
+        .search-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .ticket-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-info h3 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .ticket-details {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .ticket-detail {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .ticket-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .btn-edit {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-cancel {
+            background: var(--danger);
+            color: white;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .ticket-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .ticket-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-train"></i>
+                <span>RailConnect</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#book">Book Ticket</a></li>
+                    <li><a href="#tickets">My Tickets</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Travel With Comfort & Safety</h1>
+            <p>Book your train tickets in just a few clicks. Enjoy seamless travel experiences with our reliable booking system.</p>
+            <a href="#book" class="btn">Book Now</a>
+            <a href="#tickets" class="btn btn-outline">View Tickets</a>
+        </div>
+    </section>
+
+    <div class="container" id="book">
+        <h2>Book Your Train Ticket</h2>
+        <p class="section-description">Fill in the details below to book your train ticket. We offer multiple class options to suit your travel needs.</p>
+        
+        <div id="message"></div>
+        
+        <form id="bookingForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="trainName"><i class="fas fa-train"></i> Train Name</label>
+                    <select id="trainName" required>
+                        <option value="">Select Train</option>
+                        <option value="Rajdhani Express">Rajdhani Express</option>
+                        <option value="Shatabdi Express">Shatabdi Express</option>
+                        <option value="Duronto Express">Duronto Express</option>
+                        <option value="Garib Rath">Garib Rath</option>
+                        <option value="Tejas Express">Tejas Express</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="source"><i class="fas fa-map-marker-alt"></i> Source Station</label>
+                    <select id="source" required>
+                        <option value="">Select Source</option>
+                        <option value="New Delhi">New Delhi</option>
+                        <option value="Mumbai Central">Mumbai Central</option>
+                        <option value="Chennai Central">Chennai Central</option>
+                        <option value="Kolkata Howrah">Kolkata Howrah</option>
+                        <option value="Bangalore City">Bangalore City</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="destination"><i class="fas fa-map-marker-alt"></i> Destination Station</label>
+                    <select id="destination" required>
+                        <option value="">Select Destination</option>
+                        <option value="New Delhi">New Delhi</option>
+                        <option value="Mumbai Central">Mumbai Central</option>
+                        <option value="Chennai Central">Chennai Central</option>
+                        <option value="Kolkata Howrah">Kolkata Howrah</option>
+                        <option value="Bangalore City">Bangalore City</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date"><i class="fas fa-calendar-alt"></i> Date of Journey</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="classType"><i class="fas fa-bed"></i> Class Type</label>
+                    <select id="classType" required>
+                        <option value="">Select Class</option>
+                        <option value="Sleeper">Sleeper</option>
+                        <option value="3AC">3AC</option>
+                        <option value="2AC">2AC</option>
+                        <option value="1AC">1AC</option>
+                        <option value="Executive">Executive</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="passengers"><i class="fas fa-users"></i> Number of Passengers</label>
+                    <select id="passengers">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="payment"><i class="fas fa-credit-card"></i> Payment Method</label>
+                    <select id="payment">
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="UPI">UPI</option>
+                        <option value="Net Banking">Net Banking</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button type="submit"><i class="fas fa-ticket-alt"></i> Book Ticket</button>
+        </form>
+    </div>
+
+    <div class="container" id="tickets">
+        <h2>Your Booked Tickets</h2>
+        <p class="section-description">View and manage your booked tickets. You can edit or cancel tickets as per your travel plans.</p>
+        
+        <div class="search-container">
+            <h3 class="search-title">Search Tickets</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" id="searchInput" placeholder="Search by train name or PNR">
+                </div>
+                <div class="form-group">
+                    <button id="searchBtn" class="btn">Search</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="ticketsList">
+            <!-- Tickets will be dynamically added here -->
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Why Choose RailConnect?</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Quick Booking</h3>
+                <p>Book your tickets in just a few clicks with our intuitive interface.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure Payment</h3>
+                <p>Your payments are protected with our advanced security measures.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>24/7 Support</h3>
+                <p>Our customer support team is available round the clock to assist you.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Mobile Friendly</h3>
+                <p>Access our platform on any device with our responsive design.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="about">
+        <h2>About RailConnect</h2>
+        <p class="section-description">
+            RailConnect is a modern train booking platform designed to provide a seamless experience for travelers.
+        </p>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">Happy Travelers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">200+</div>
+                <div class="stat-label">Train Routes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Customer Support</div>
+            </div>
+        </div>
+        
+        <p style="margin-top: 30px; text-align: center;">
+            This is a professional frontend demo for a <b>Spring Boot Train Booking System</b>.  
+            It allows users to book tickets, view booked tickets, and experience a user-friendly design.  
+            You can connect this frontend to your Spring Boot backend using REST APIs.
+        </p>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>RailConnect</h3>
+                <p>Your trusted partner for seamless train travel experiences. Book tickets with ease and travel with comfort.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#book">Book Ticket</a></li>
+                    <li><a href="#tickets">My Tickets</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Train Booking</a></li>
+                    <li><a href="#">PNR Status</a></li>
+                    <li><a href="#">Live Train Status</a></li>
+                    <li><a href="#">Cancellation</a></li>
+                    <li><a href="#">Refund Status</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Railway Road, New Delhi</li>
+                    <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                    <li><i class="fas fa-envelope"></i> support@railconnect.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2023 RailConnect | Developed by Kanhaiya Patel
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('bookingForm');
+            const ticketsList = document.getElementById('ticketsList');
+            const message = document.getElementById('message');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            let ticketIdCounter = parseInt(localStorage.getItem('ticketIdCounter')) || 1;
+
+            // Initialize with sample tickets if empty
+            if (tickets.length === 0) {
+                const sampleTickets = [
+                    {
+                        id: ticketIdCounter++,
+                        name: "John Doe",
+                        trainName: "Rajdhani Express",
+                        source: "New Delhi",
+                        destination: "Mumbai Central",
+                        date: "2023-12-15",
+                        classType: "2AC",
+                        passengers: 2,
+                        pnr: "PNR" + Math.floor(100000 + Math.random() * 900000)
+                    },
+                    {
+                        id: ticketIdCounter++,
+                        name: "Jane Smith",
+                        trainName: "Shatabdi Express",
+                        source: "Chennai Central",
+                        destination: "Bangalore City",
+                        date: "2023-12-20",
+                        classType: "Executive",
+                        passengers: 1,
+                        pnr: "PNR" + Math.floor(100000 + Math.random() * 900000)
+                    }
+                ];
+                tickets = sampleTickets;
+                localStorage.setItem('tickets', JSON.stringify(tickets));
+                localStorage.setItem('ticketIdCounter', ticketIdCounter);
+            }
+
+            // Render tickets on page load
+            renderTickets();
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const trainName = document.getElementById('trainName').value;
+                const source = document.getElementById('source').value;
+                const destination = document.getElementById('destination').value;
+                const date = document.getElementById('date').value;
+                const classType = document.getElementById('classType').value;
+                const passengers = document.getElementById('passengers').value;
+
+                if (!name || !trainName || !source || !destination || !date || !classType) {
+                    message.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Please fill all required fields!</div>';
+                    return;
+                }
+
+                if (source === destination) {
+                    message.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Source and destination cannot be the same!</div>';
+                    return;
+                }
+
+                const ticket = {
+                    id: ticketIdCounter++,
+                    name,
+                    trainName,
+                    source,
+                    destination,
+                    date,
+                    classType,
+                    passengers,
+                    pnr: "PNR" + Math.floor(100000 + Math.random() * 900000)
+                };
+                
+                tickets.push(ticket);
+                localStorage.setItem('tickets', JSON.stringify(tickets));
+                localStorage.setItem('ticketIdCounter', ticketIdCounter);
+                
+                renderTickets();
+                form.reset();
+                message.innerHTML = '<div class="success"><i class="fas fa-check-circle"></i> Ticket booked successfully! Your PNR is: ' + ticket.pnr + '</div>';
+                
+                // Scroll to tickets section
+                document.getElementById('tickets').scrollIntoView({ behavior: 'smooth' });
+                
+                setTimeout(() => message.innerHTML = '', 5000);
+            });
+
+            searchBtn.addEventListener('click', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const filteredTickets = tickets.filter(ticket => 
+                    ticket.trainName.toLowerCase().includes(searchTerm) || 
+                    ticket.pnr.toLowerCase().includes(searchTerm)
+                );
+                renderTickets(filteredTickets);
+            });
+
+            function renderTickets(ticketsToRender = tickets) {
+                ticketsList.innerHTML = '';
+                
+                if (ticketsToRender.length === 0) {
+                    ticketsList.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--gray);">No tickets found. Book your first ticket above!</p>';
+                    return;
+                }
+                
+                ticketsToRender.forEach(ticket => {
+                    const ticketCard = document.createElement('div');
+                    ticketCard.className = 'ticket-card';
+                    
+                    ticketCard.innerHTML = `
+                        <div class="ticket-info">
+                            <h3>${ticket.trainName}</h3>
+                            <div class="ticket-details">
+                                <div class="ticket-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>${ticket.name}</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>${ticket.source} → ${ticket.destination}</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>${formatDate(ticket.date)}</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <i class="fas fa-bed"></i>
+                                    <span>${ticket.classType}</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <i class="fas fa-users"></i>
+                                    <span>${ticket.passengers} Passenger(s)</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    <span>${ticket.pnr}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ticket-actions">
+                            <button class="action-btn btn-edit" onclick="editTicket(${ticket.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn btn-cancel" onclick="cancelTicket(${ticket.id})">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </div>
+                    `;
+                    
+                    ticketsList.appendChild(ticketCard);
+                });
+            }
+
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('en-US', options);
+            }
+
+            // Make functions available globally for onclick handlers
+            window.editTicket = function(id) {
+                const ticket = tickets.find(t => t.id === id);
+                if (ticket) {
+                    document.getElementById('name').value = ticket.name;
+                    document.getElementById('trainName').value = ticket.trainName;
+                    document.getElementById('source').value = ticket.source;
+                    document.getElementById('destination').value = ticket.destination;
+                    document.getElementById('date').value = ticket.date;
+                    document.getElementById('classType').value = ticket.classType;
+                    document.getElementById('passengers').value = ticket.passengers;
+                    
+                    // Remove the ticket being edited
+                    tickets = tickets.filter(t => t.id !== id);
+                    localStorage.setItem('tickets', JSON.stringify(tickets));
+                    renderTickets();
+                    
+                    // Scroll to booking form
+                    document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+                    
+                    message.innerHTML = '<div class="success"><i class="fas fa-info-circle"></i> Ticket loaded for editing. Update details and submit to save changes.</div>';
+                    setTimeout(() => message.innerHTML = '', 5000);
+                }
+            };
+
+            window.cancelTicket = function(id) {
+                if (confirm('Are you sure you want to cancel this ticket?')) {
+                    tickets = tickets.filter(t => t.id !== id);
+                    localStorage.setItem('tickets', JSON.stringify(tickets));
+                    renderTickets();
+                    
+                    message.innerHTML = '<div class="success"><i class="fas fa-check-circle"></i> Ticket cancelled successfully!</div>';
+                    setTimeout(() => message.innerHTML = '', 3000);
+                }
+            };
+        });
+    </script>
+
+</body>
+</html>
